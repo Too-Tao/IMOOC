@@ -1,0 +1,16 @@
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a:focus {
+  text-decoration: none !important;
+}
