@@ -1,0 +1,54 @@
+.HeaderStyle {
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 21, 41, 0.08);
+  height: 64px;
+  padding: 0;
+  & > span:first-child {
+    display: inline-block;
+    text-align: center;
+    width: 64px;
+    height: 64px;
+  }
+  & > span:first-child:hover {
+    background: #FBFBFB;
+    cursor: pointer;
+  }
+  .trigger {
+    font-size: 20px;
+  }
+  .headerRight {
+    float: right;
+    & > span {
+      display: inline-block;
+    }
+    & > span:first-child {
+      height: 64px;
+      line-height: 64px;
+      padding: 0px 12px;
+      .userPic {
+        margin: 20px 8px 20px 0;
+        & > img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    & > span:first-child:hover {
+      cursor: pointer;
+      background: #FBFBFB;
+    }
+    & > span:last-child {
+      margin-right: 20px;
+      font-size: 16px;
+      padding: 0px 12px;
+    }
+    & > span:last-child:hover {
+      cursor: pointer;
+      background: #FBFBFB;
+    }
+  }
+}
+.dropdownSpan {
+  display: inline-block;
+  margin-left: 5px;
+}
