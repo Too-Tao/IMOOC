@@ -7,10 +7,18 @@ body {
   margin: 0;
 }
 
-li {
+ol, ul, li {
   list-style: none;
+  margin-bottom: 0;
+}
+
+a {
+  color:#333;
 }
 
 a:focus {
   text-decoration: none !important;
+}
+a:hover {
+  color: red;
 }
