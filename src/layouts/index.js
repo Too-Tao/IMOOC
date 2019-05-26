@@ -32,7 +32,7 @@ class BasicLayout extends React.Component {
       <div>
         <Layout>
           <GlobalSideMenu collapsed={collapsed} />
-          <Layout>
+          <Layout style={{ minHeight: '100vh' }}>
             <GlobalHeader collapsed={collapsed} changeCollapsed={this.changeCollapsed} />
             <Content className={styles.content}>{children}</Content>
             <GlobalFooter />
