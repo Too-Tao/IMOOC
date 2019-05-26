@@ -5,7 +5,8 @@ const resolve = p => path.resolve(__dirname, p)
 export default {
   alias: {
     images: resolve('../src/assets/images'),
-    routes: resolve('./routes')
+    routes: resolve('./routes'),
+    utils: resolve('../src/utils'),
   },
   devServer: {
     proxy: {
