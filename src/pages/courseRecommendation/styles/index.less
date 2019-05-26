@@ -1,0 +1,64 @@
+.headerWrapper {
+  border-bottom: 1px solid rgba(28,31,33,.2);
+  & > span {
+    display: inline-block;
+    width: 96px;
+    height: 60px;
+    & > img {
+      width: 96px;
+      height: 60px;
+    }
+  }
+}
+.list {
+  & > div {
+    padding: 16px 0 8px;
+    border-bottom: 1px solid #edf1f2;
+  }
+  .title {
+    float: left;
+    width: 52px;
+    height: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #07111b;
+    text-align: left;
+  }
+  .ulWrap {
+    & > ul {
+      margin-bottom: 0;
+    }
+    & > ul > li {
+      display: inline-block;
+      margin: 0 4px;
+      & > a {
+        display: block;
+        line-height: 14px;
+        padding: 10px;
+        font-size: 14px;
+        color: #333333;
+      }
+      & > a:hover {
+        color: red;
+      }
+    }
+    & > ul > li:first-child {
+      background: rgba(242,13,13,.06);
+      border-radius: 6px;
+      font-weight: 700;
+      & > a {
+        color: #f20d0d;
+      }
+    }
+  }
+  .direction {
+    
+  }
+  .classification {
+
+  }
+  .difficult {
+
+  }
+}
