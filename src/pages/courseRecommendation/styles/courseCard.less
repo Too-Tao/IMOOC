@@ -1,0 +1,66 @@
+.courseCardWrap {
+  width: 216px;
+  height: 256px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  .coursePic {
+    height: 120px;
+    background: green;
+    border-radius: 10px;
+    & > img {
+      width: 216px;
+      height: 120px;
+      border-radius: 10px;
+    }
+  }
+  .courseMsgContent {
+    padding: 12px 8px;
+    & > h3 {
+      font-size: 16px;
+      color: #07111B;
+      line-height: 24px;
+      font-weight: 400;
+      font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all .3s;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+    }
+    & > h3:hover {
+      cursor: pointer;
+      color: red;
+    }
+    .courseInfo {
+      font-size: 12px;
+      color: #93999f;
+      line-height: 24px;
+      font-weight: 400;
+      & > span {
+        display: inline-block;
+        margin-right: 12px;
+      }
+    }
+    .courseDesc {
+      font-size: 12px;
+      color: #93999f;
+      line-height: 20px;
+      margin-top: 4px;
+      font-weight: 400;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+    }
+  }
+}
