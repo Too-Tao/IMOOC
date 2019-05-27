@@ -17,7 +17,6 @@ export default class SideMenu extends PureComponent {
   }
   render () {
     const { collapsed } = this.props
-    console.log(this.props)
     return (
       <div>
         <Sider className={styles.sideStyle} trigger={null} collapsible collapsed={collapsed}>
