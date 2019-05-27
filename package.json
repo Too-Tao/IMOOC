@@ -10,6 +10,7 @@
   "dependencies": {
     "antd": "^3.17.0",
     "dva": "^2.5.0-beta.2",
+    "classnames":"2.2.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
