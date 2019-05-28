@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Icon } from 'antd'
+import Link from 'umi/link'
 import styles from '../styles/courseCard.less'
 
 class CourseCard extends Component {
@@ -7,21 +8,23 @@ class CourseCard extends Component {
     const { imgUrl, title, level, members, desc } = this.props
     return (
       <div className={styles.courseCardWrap}>
-        <div className={styles.coursePic}>
-          <img src={imgUrl} alt="img"/>
-        </div>
-        <div className={styles.courseMsgContent}>
-          <h3>{title}</h3>
-          <div className={styles.courseInfo}>
-            <span>{level}</span>
-            <span>
-            <Icon type="user" />{members}
-            </span>
+        <Link to="/courseDetail">
+          <div className={styles.coursePic}>
+            <img src={imgUrl} alt="img"/>
           </div>
-          <p className={styles.courseDesc}>
-            {desc}
-          </p>
-        </div>
+          <div className={styles.courseMsgContent}>
+            <h3>{title}</h3>
+            <div className={styles.courseInfo}>
+              <span>{level}</span>
+              <span>
+              <Icon type="user" />{members}
+              </span>
+            </div>
+            <p className={styles.courseDesc}>
+              {desc}
+            </p>
+          </div>
+        </Link>
       </div>
     )
   }
