@@ -6,6 +6,12 @@
     title: '课程推荐'
   },
   {
+    path: '/courseDetail',
+    component: './courseDetail/index',
+    title: '课程详情',
+    noShowInMenu: true
+  },
+  {
     path: '/courseManage',
     iconType: 'video-camera',
     title: '课程管理',
