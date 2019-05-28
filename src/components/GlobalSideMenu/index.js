@@ -28,13 +28,16 @@ export default class SideMenu extends PureComponent {
           </div>
           <Menu theme="dark" mode="inline">
             {
-              menuRoutesData.map( ({ path, title, iconType }) => (
+              menuRoutesData.map( ({ path, title, iconType, noShowInMenu }) => (
+                !noShowInMenu
+                ?
                 <MenuItem key={path}>
                   <Link to={path}>
                     <Icon type={iconType} />
                     <span>{title}</span>
                   </Link>
                 </MenuItem>
+                : null
               ))
             }
           </Menu>
