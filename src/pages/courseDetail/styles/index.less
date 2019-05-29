@@ -49,23 +49,24 @@
       .score {
         cursor: pointer;
       }
-    }
-    .desc::after {
-      content: "·";
-      margin-right: 20px;
-    }
-    .clearContent::after {
-      content: " ";
-    }
+      }
+      .desc::after {
+        content: "·";
+        margin-right: 20px;
+      }
+      .clearContent::after {
+        content: " ";
+      }
     .toLearning {
       width: 250px;
       height: 40px;
+      float: right;
       background: #F02D0D;
       text-align: center;
       line-height: 40px;
       border-radius: 15px;
       margin-top: 5px;
-      margin-left: 345px;
+      transition: all .3s;
       & > a {
         color: #ffffff;
       }
