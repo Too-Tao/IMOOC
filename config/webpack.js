@@ -11,7 +11,7 @@ export default {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://easy-mock.com/mock/5ce8dc24c27171751ad09a3c/imooc',
+        target: 'http://47.100.206.216:40100',
         pathRewrite: { '^/api': '' },
         changeOrigin: true
       }

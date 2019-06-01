@@ -6,7 +6,7 @@
     title: '课程推荐'
   },
   {
-    path: '/courseDetail',
+    path: '/courseDetail/:id',
     component: './courseDetail/index',
     title: '课程详情',
     noShowInMenu: true
