@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Layout, Icon, Dropdown, Menu, Modal } from 'antd'
+import { connect } from 'dva'
 import styles from './index.less'
 
 const { Header } = Layout
@@ -21,7 +22,13 @@ const menu = (
   </Menu>
 )
 
-export default class GlobalHeader extends PureComponent {
+const mapStateToProps = ({ loading, globalHeader }) => {
+  return {
+    loading: loading.effects['globalHeader/logout']
+  }
+}
+@connect(mapStateToProps)
+class GlobalHeader extends PureComponent {
 
   toggle = () => {
     this.props.changeCollapsed(!this.props.collapsed)
@@ -32,12 +39,14 @@ export default class GlobalHeader extends PureComponent {
       visible: flag
     })
   }
+
   modalConfig = () => {
     Modal.confirm({
       title: '提示',
       content: '是否确认退出登陆？',
       okText: '确认',
-      cancelText: '取消'
+      cancelText: '取消',
+      onOk: () => { this.props.dispatch({ type: 'globalHeader/logout' }) }
     })
   }
   render () {
@@ -67,3 +76,5 @@ export default class GlobalHeader extends PureComponent {
     )
   }
 }
+
+export default GlobalHeader
