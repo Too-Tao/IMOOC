@@ -10,6 +10,10 @@ export default {
   registerURL: 'POST /register',
   //dashboard (首页)
   dashboardURL: '/dashboard',
+  //推荐课程页数据
+  courseRecommendationDataURL: '/courseRecommendation',
   //courseRecommendation （课程详情页）
   queryCourseDetailURL: '/search/course/getall/:id',
+  //数据分析页面数据
+  dataAnalysisDataURL: '/dataAnalysisData'
 }
