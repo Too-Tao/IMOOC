@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Popover, Rate, Icon  } from 'antd'
+import { connect } from 'dva'
 import styles from './styles/index.less'
 
 const content = (
@@ -18,7 +19,17 @@ const content = (
   </div>
 )
 
+const mapStateToProps = ({ detail }) => {
+  return {
+    detailData: detail.detailData
+  }
+}
+@connect(mapStateToProps)
 class CourseDetail extends Component {
+  componentDidMount () {
+    const { dispatch, match } = this.props
+    dispatch({ type: 'detail/getDetailData', payload: match.params  })
+  }
   render () {
     return (
       <div>
