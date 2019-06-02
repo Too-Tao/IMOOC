@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
+import { connect } from 'dva'
 import styles from './styles/index.less'
 import { validatorName, validatorPassword } from 'utils/validator.js'
 
@@ -15,6 +16,13 @@ const rulesData = {
   passwordRules: [{ required: true, message: '请输入密码' }, { validator: validatorPassword }]
 }
 
+const mapStateToProps = ({ loading }) => {
+  return {
+    loading: loading.effects['login/register']
+  }
+}
+
+@connect(mapStateToProps)
 class Registration extends Component {
 
   comparePassword = (rule, value, callback) => {
@@ -27,13 +35,18 @@ class Registration extends Component {
   }
 
   handleSubmitRegister = (e) => {
+    const { form, dispatch } = this.props
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
+    form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values)
-        this.handleCancelRegister(false)
+        dispatch({ type: 'login/register', payload: values, callback: this.handleRegisterCallback })
       }
     })
+  }
+
+  handleRegisterCallback = () => {
+    this.handleCancelRegister(false)
+    message.success('注册成功')
   }
 
   handleCancelRegister = (flag) => {
