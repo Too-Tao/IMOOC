@@ -1,3 +1,5 @@
+export const ECHARTS_COLOR = ["#f3c1c6", "#f0f69f", "#b0e0a8", "#e41749", "#5bd1d7", "#348498", "#dedede"]
+
 export const IMOOC_LOGIN_TOKEN = 'IMOOC-LOGIN-TOKEN'
 
 export const CAREER_DIRECTION = [
