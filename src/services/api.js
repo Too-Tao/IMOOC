@@ -2,6 +2,14 @@
 // 当写第三个数据时，请求类型必填。 如 'GET /log/download info'
 
 export default {
-  //courseRecommendation
-  queryCourseDetail: '/search/course/getall/:id'
+  //login (登陆)
+  loginURL: 'POST /login',
+  //退出登陆
+  logoutURL: 'POST /logout',
+  //register (注册)
+  registerURL: 'POST /register',
+  //dashboard (首页)
+  dashboardURL: '/dashboard',
+  //courseRecommendation （课程详情页）
+  queryCourseDetailURL: '/search/course/getall/:id',
 }
