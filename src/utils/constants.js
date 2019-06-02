@@ -1,3 +1,5 @@
+export const IMOOC_LOGIN_TOKEN = 'IMOOC-LOGIN-TOKEN'
+
 export const CAREER_DIRECTION = [
   { id: 0, value: '全部' },
   { id: 1, value: '前端开发' },
