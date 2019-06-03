@@ -15,5 +15,8 @@ export default {
   //courseRecommendation （课程详情页）
   queryCourseDetailURL: '/search/course/getall/:id',
   //数据分析页面数据
-  dataAnalysisDataURL: '/dataAnalysisData'
+  dataAnalysisDataURL: '/dataAnalysisData',
+
+  //用户管理页面
+  tableDataURL: '/tableData',
 }
