@@ -5,7 +5,7 @@ export default {
   //login (登陆)
   loginURL: 'POST /login',
   //退出登陆
-  logoutURL: 'POST /logout',
+  logoutURL: '/logout',
   //register (注册)
   registerURL: 'POST /register',
   //dashboard (首页)
@@ -19,4 +19,10 @@ export default {
 
   //用户管理页面
   tableDataURL: '/tableData',
+  //新增用户
+  addUserURL: 'POST /addUser',
+  //编辑用户
+  editUserMsgURL: 'POST /editUserMsg',
+  //删除用户
+  removeUserURL: 'POST /removeUser'
 }
