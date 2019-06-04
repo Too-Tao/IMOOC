@@ -1,3 +1,14 @@
+export const EMAIL_ADDRESS = [
+  '@qq.com',
+  '@163.com',
+  '@sina.com',
+  '@sohu.com',
+  '@sogou.com',
+  '@tom.com',
+  '@126.com',
+  '@21cn.com'
+]
+
 export const ECHARTS_COLOR = ["#f3c1c6", "#f0f69f", "#b0e0a8", "#e41749", "#5bd1d7", "#348498", "#dedede"]
 
 export const IMOOC_LOGIN_TOKEN = 'IMOOC-LOGIN-TOKEN'
