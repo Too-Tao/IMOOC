@@ -26,7 +26,7 @@ class SolidPieEcharts extends PureComponent {
     },
     series : [
         {
-          name: '访问来源',
+          name: title,
           type: 'pie',
           radius : '70%',
           center: ['50%', '50%'],

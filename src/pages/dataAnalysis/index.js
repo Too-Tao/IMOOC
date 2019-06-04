@@ -31,7 +31,6 @@ class DataAnalysis extends Component {
 
   render () {
     const { loading } = this.props
-    console.log(loading)
     const { courseDifficultyData, courseCategoryData, teacherTitleData } = this.state.dataAnalysisData
     return (
       <div>
