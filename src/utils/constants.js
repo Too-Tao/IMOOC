@@ -113,3 +113,10 @@ export const DIFFICULT = [
   { id: 2, value: '初级' },
   { id: 3, value: '高级' },
 ]
+
+export const USER_TYPE = {
+  101003: '管理员',
+  101001: '普通用户',
+  '管理员': 101003,
+  '普通用户': 101001
+}
