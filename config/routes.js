@@ -15,7 +15,8 @@
     path: '/courseManage',
     iconType: 'video-camera',
     title: '课程管理',
-    component: './courseManage/index'
+    component: './courseManage/index',
+    exclude: 101001
   }, {
     path: './dataAnalysis',
     iconType: 'area-chart',
@@ -25,17 +26,20 @@
     path: './commentManage',
     iconType: 'message',
     title: '评论管理',
-    component: './commentManage/index'
+    component: './commentManage/index',
+    exclude: 101001
   }, {
     path: './classifiedManage',
     iconType: 'read',
     title: '分类管理',
-    component: './classifiedManage/index'
+    component: './classifiedManage/index',
+    exclude: 101001
   }, {
     path: './userManage',
     iconType: 'user',
     title: '用户管理',
-    component: './userManage/index'
+    component: './userManage/index',
+    exclude: 101001
   }
 ]
 
