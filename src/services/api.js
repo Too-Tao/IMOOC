@@ -2,6 +2,8 @@
 // 当写第三个数据时，请求类型必填。 如 'GET /log/download info'
 
 export default {
+  //用户信息
+  userInfoURL: '/userInfo',
   //login (登陆)
   loginURL: 'POST /login',
   //退出登陆
