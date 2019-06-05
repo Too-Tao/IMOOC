@@ -5,11 +5,14 @@ const { loginURL, registerURL } = api
 export default {
   namespace: 'login',
 
-  state: { },
+  state: {
+    data: {}
+  },
 
   effects: {
-    *login ({ payload, callback }, { call }) {
+    *login ({ payload, callback }, { call, put }) {
       const loginStatus = yield call(loginURL, payload)
+      yield put({ type: 'savaPayload', payload: loginStatus })
       if (loginStatus) {
         callback()
         return
@@ -23,5 +26,12 @@ export default {
       }
     }
   },
-  reducers: { }
+  reducers: {
+    savaPayload (state, { payload }) {
+      return {
+        ...state,
+        ...payload
+      }
+    }
+  }
 }
