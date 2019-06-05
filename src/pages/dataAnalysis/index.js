@@ -4,6 +4,9 @@ import { connect } from 'dva'
 import styles from './styles/index.less'
 import HollowPieEcharts from './components/echarts/hollowPieEcharts'
 import SolidPieEcharts from './components/echarts/solidPieEcharts'
+import BarEcharts from './components/echarts/barEcharts'
+import LineEcharts from './components/echarts/lineEcharts'
+
 
 const mapStateToProps = ({ loading, dataAnalysis }) => {
   return {
@@ -36,10 +39,14 @@ class DataAnalysis extends Component {
       <div>
         <Row gutter={24}>
           <Col span={12}>
-            <div className={styles.echartsHeaderItem}></div>
+            <div className={styles.echartsHeaderItem}>
+              <BarEcharts title="课程评分与数量" />
+            </div>
           </Col>
           <Col span={12}>
-            <div className={styles.echartsHeaderItem}></div>
+            <div className={styles.echartsHeaderItem}>
+              <LineEcharts title="课程分类与课程数量" />
+            </div>
           </Col>
         </Row>
         <div className={styles.rowWrap}>
