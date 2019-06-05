@@ -50,12 +50,12 @@ class Dashboard extends Component {
           <Carousel autoplay effect="fade" ref="img">
             {
               swipperImg.map(({ id, imgUrl, link }) => (
-                <a className={styles.aStyle} key={id} href={link}><img src={imgUrl} target="_blank" alt="courseImg"/></a>
+                <a className={styles.aStyle} key={id} href={link} target="_blank" rel="noopener noreferrer"><img src={imgUrl} alt="courseImg"/></a>
               ))
             }
           </Carousel>
           <div className={styles.iconWrapper} onClick={this.handleToNext}>
-            <Icon type="right"  />
+            <Icon type="right" />
           </div>
         </div>
         <div className={styles.cardWrapper}>
@@ -72,7 +72,7 @@ class Dashboard extends Component {
             {
               recommendData.map(({id, imgUrl, title, link}) => (
                 <Col span={6} key={id}>
-                  <a className={styles.card} href={link} target="_blank" >
+                  <a className={styles.card} href={link} target="_blank" rel="noopener noreferrer" >
                     <div className={styles.cardPic}>
                       <img src={imgUrl} alt="img" />
                       </div>
