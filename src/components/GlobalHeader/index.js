@@ -22,9 +22,9 @@ const menu = (
   </Menu>
 )
 
-const mapStateToProps = ({ loading, globalHeader }) => {
+const mapStateToProps = ({ loading, global }) => {
   return {
-    loading: loading.effects['globalHeader/logout']
+    loading: loading.effects['global/logout']
   }
 }
 @connect(mapStateToProps)
@@ -46,7 +46,7 @@ class GlobalHeader extends PureComponent {
       content: '是否确认退出登陆？',
       okText: '确认',
       cancelText: '取消',
-      onOk: () => { this.props.dispatch({ type: 'globalHeader/logout' }) }
+      onOk: () => { this.props.dispatch({ type: 'global/logout' }) }
     })
   }
   render () {

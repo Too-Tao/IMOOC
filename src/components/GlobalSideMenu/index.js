@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { menuRoutesData } from 'routes'
+import { connect } from 'dva'
 import Link from 'umi/link'
 import styles from './index.less'
 import logo from 'images/login/logo.png'
@@ -11,24 +12,48 @@ const getIcon = () => (
   <img className={styles.logoImg} src={logo} alt="logo" />
 )
 
-export default class SideMenu extends PureComponent {
+const mapStateToProps = ({ global }) => {
+  return {
+    userInfo: global.userInfo
+  }
+}
+
+@connect(mapStateToProps)
+class SideMenu extends PureComponent {
   state = {
     collapsed: false
   }
+
+  filterRoleMenu = (menuRoutesData) => {
+    const { userInfo } = this.props
+    const { utype } = userInfo
+    return this.filterMethods(menuRoutesData, utype)
+  }
+
+  filterMethods = (menuRoutesData, utype) => {
+    return menuRoutesData.filter(item => {
+      let { exclude } = item
+      return exclude && exclude === (utype) ? null : item
+    })
+  }
+
   render () {
     const { collapsed } = this.props
+    const menuRoutesDataFilter = this.filterRoleMenu(menuRoutesData)
     return (
       <div>
         <Sider className={styles.sideStyle} trigger={null} collapsible collapsed={collapsed}>
           <div className={styles.logo}>
             <Link to="/">
-              <Icon component={getIcon} />
+              <span>
+                <Icon component={getIcon} />
+              </span>
               <h1>慕课推荐系统</h1>
             </Link>
           </div>
           <Menu theme="dark" mode="inline">
             {
-              menuRoutesData.map( ({ path, title, iconType, noShowInMenu }) => (
+              menuRoutesDataFilter.map( ({ path, title, iconType, noShowInMenu }) => (
                 !noShowInMenu
                 ?
                 <MenuItem key={path}>
@@ -46,3 +71,5 @@ export default class SideMenu extends PureComponent {
     )
   }
 }
+
+export default SideMenu
