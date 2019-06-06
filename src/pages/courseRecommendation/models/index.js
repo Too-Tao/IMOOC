@@ -5,7 +5,7 @@ const { courseRecommendationDataURL } = api
 export default {
   namespace: 'courseRecommendation',
   state: {
-    ListData: []
+    listData: []
   },
   effects: {
     *getListData (_, { call, put }) {
@@ -17,7 +17,7 @@ export default {
     savePayload (state, { payload }) {
       return {
         ...state,
-        ...payload
+        listData: payload.courseData
       }
     }
   }

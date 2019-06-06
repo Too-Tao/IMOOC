@@ -28,7 +28,8 @@ const mapStateToProps = ({ detail }) => {
 class CourseDetail extends Component {
   componentDidMount () {
     const { dispatch, match } = this.props
-    dispatch({ type: 'detail/getDetailData', payload: match.params  })
+    // dispatch({ type: 'detail/getDetailData', payload: match.params  })
+    dispatch({ type: 'detail/getDetailData', payload: 1  })
   }
   render () {
     return (

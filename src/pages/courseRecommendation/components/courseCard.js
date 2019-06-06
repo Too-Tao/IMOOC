@@ -5,10 +5,10 @@ import styles from '../styles/courseCard.less'
 
 class CourseCard extends Component {
   render () {
-    const { imgUrl, title, level, members, desc } = this.props
+    const { imgUrl, title, level, members, desc, id } = this.props
     return (
       <div className={styles.courseCardWrap}>
-        <Link to="/courseDetail">
+        <Link to={`/courseDetail/${id}`}>
           <div className={styles.coursePic}>
             <img src={imgUrl} alt="img"/>
           </div>
