@@ -26,5 +26,8 @@ export default {
   //编辑用户
   editUserMsgURL: 'POST /editUserMsg',
   //删除用户
-  removeUserURL: 'POST /removeUser'
+  removeUserURL: 'POST /removeUser',
+  //教师信息
+  teacherListURL: '/teacherList',
+  teacherDetailURL: 'POST /teacherDetail'
 }
