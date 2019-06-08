@@ -48,46 +48,49 @@
       margin: 0 3px;
     }
   }
-  .card {
-    display: block;
-    width: 216px;
-    margin-bottom: 30px;
-    .cardPic {
-      height: 120px;
-      background: green;
-      border-radius: 10px;
-      & > img {
-        width: 216px;
+  .RowWrap {
+    width: 1240px;
+    .card {
+      display: block;
+      width: 216px;
+      margin-bottom: 30px;
+      .cardPic {
         height: 120px;
+        background: green;
         border-radius: 10px;
+        & > img {
+          width: 216px;
+          height: 120px;
+          border-radius: 10px;
+        }
       }
-    }
-    .cardPic:hover {
-      cursor: pointer;
-      box-shadow: 0px 5px 8px rgba(0,0,0,0.5);
-    }
-    .courseContent {
-      padding: 12px 8px;
-      & > h3 {
-        font-size: 16px;
-        color: #07111B;
-        line-height: 24px;
-        font-weight: 400;
-        font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
-        word-wrap: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: all .3s;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        display: -webkit-box;
-        /* autoprefixer: off */
-        -webkit-box-orient: vertical;
-        /* autoprefixer: on */
-      }
-      & > h3:hover {
+      .cardPic:hover {
         cursor: pointer;
-        color: red;
+        box-shadow: 0px 5px 8px rgba(0,0,0,0.5);
+      }
+      .courseContent {
+        padding: 12px 8px;
+        & > h3 {
+          font-size: 16px;
+          color: #07111B;
+          line-height: 24px;
+          font-weight: 400;
+          font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+          word-wrap: break-word;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: all .3s;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          display: -webkit-box;
+          /* autoprefixer: off */
+          -webkit-box-orient: vertical;
+          /* autoprefixer: on */
+        }
+        & > h3:hover {
+          cursor: pointer;
+          color: red;
+        }
       }
     }
   }

@@ -68,22 +68,24 @@ class Dashboard extends Component {
             /
             <em>荐</em>
           </div>
-          <Row>
-            {
-              recommendData.map(({id, imgUrl, title, link}) => (
-                <Col span={6} key={id}>
-                  <a className={styles.card} href={link} target="_blank" rel="noopener noreferrer" >
-                    <div className={styles.cardPic}>
-                      <img src={imgUrl} alt="img" />
+          <div className={styles.RowWrap}>
+            <Row type="flex" justify="center">
+              {
+                recommendData.map(({id, imgUrl, title, link}) => (
+                  <Col span={5} key={id}>
+                    <a className={styles.card} href={link} target="_blank" rel="noopener noreferrer" >
+                      <div className={styles.cardPic}>
+                        <img src={imgUrl} alt="img" />
+                        </div>
+                      <div className={styles.courseContent}>
+                        <h3>{title}</h3>
                       </div>
-                    <div className={styles.courseContent}>
-                      <h3>{title}</h3>
-                    </div>
-                  </a>
-                </Col>
-              ))
-            }
-          </Row>
+                    </a>
+                  </Col>
+                ))
+              }
+            </Row>
+          </div>
         </div>
       </div>
     )

@@ -11,7 +11,7 @@ export default {
   devServer: {
     proxy: {
       // '/api': {
-      //   target: 'http://47.100.206.216:40100',
+      //   target: 'http://47.100.206.216',
       //   pathRewrite: { '^/api': '' },
       //   changeOrigin: true
       // }

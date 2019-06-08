@@ -13,7 +13,8 @@ const Search = Input.Search
 const mapStateToProps = ({ loading, courseRecommendation }) => {
   return {
     loading: loading.effects['courseRecommendation/getListData'],
-    listData: courseRecommendation.listData
+    listData: courseRecommendation.listData,
+    typeData: courseRecommendation.typeData
   }
 }
 
@@ -32,6 +33,11 @@ class CourseRecommendation extends Component {
 
   componentDidMount () {
     this.props.dispatch({ type: 'courseRecommendation/getListData' })
+    this.props.dispatch({ type: 'courseRecommendation/getCourseType', callback: this.courseTypeCallback })
+  }
+
+  courseTypeCallback = (data) => {
+    console.log(data)
   }
 
   queryProject = () => {
@@ -73,7 +79,8 @@ class CourseRecommendation extends Component {
 
   render () {
     const { directionCheckId, classificationCheckId, difficultCheckId, query } = this.state
-    const { listData } = this.props
+    const { listData, typeData } = this.props
+    const directionType = typeData.children
     const direction = 0, classification = 1, difficult = 2
     return (
       <div>
@@ -87,11 +94,14 @@ class CourseRecommendation extends Component {
             <div className={styles.ulWrap}>
               <ul>
                 {
-                  CAREER_DIRECTION.map(({ id, value }) => (
-                    <li className={classnames(id === directionCheckId ? styles.checked : " ")} onClick={this.handleCheck.bind(this, id, direction)} key={id} >
-                      <a href="javascript:">{value}</a>
-                    </li>
-                  ))
+                  !!directionType
+                  ?
+                    directionType.map(({ id, name_info }) => (
+                      <li className={classnames(id === directionCheckId ? styles.checked : " ")} onClick={this.handleCheck.bind(this, id, direction)} key={id} >
+                        <a href="javascript:">{name_info}</a>
+                      </li>
+                    ))
+                  : null
                 }
               </ul>
             </div>
@@ -101,11 +111,16 @@ class CourseRecommendation extends Component {
             <div className={styles.ulWrap}>
               <ul>
                 {
-                  CLASSIFICATION.map(({ id, value }) => (
-                    <li className={classnames(id === classificationCheckId ? styles.checked : " ")} onClick={this.handleCheck.bind(this, id, classification)} key={id}>
-                      <a href="javascript:">{value}</a>
-                    </li>
-                  ))
+                  !!directionType
+                  ?
+                    directionType.map(({ children }) => (
+                      children.map( ({ id, name_info }) => (
+                        <li className={classnames(id === classificationCheckId ? styles.checked : " ")} onClick={this.handleCheck.bind(this, id, classification)} key={id}>
+                          <a href="javascript:">{name_info}</a>
+                        </li>
+                      ))
+                    ))
+                  : null
                 }
               </ul>
             </div>

@@ -14,6 +14,8 @@ export default {
   dashboardURL: '/dashboard',
   //推荐课程页数据
   courseRecommendationDataURL: '/courseRecommendation',
+  //课程分类数据
+  courseCatagoryListURL: '/course/catagory/list',
   //courseRecommendation （课程详情页）
   queryCourseDetailURL: '/search/course/getall/:id',
   //数据分析页面数据

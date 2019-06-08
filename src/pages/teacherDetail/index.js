@@ -71,11 +71,11 @@ class TeacherDetail extends Component {
             <p>上进唯实战可得，突破绝技成长瓶颈</p>
           </div>
           <div className={styles.courses}>
-            <Row gutter={24}>
+            <Row gutter={24} type="flex" justify="center">
               {
                 !!courseBaseList
                 ? courseBaseList.map(({ id, courseName, courseDescribe, studyHref }) => (
-                    <Col type="flex" span={12} justify="space-around" key={id}>
+                    <Col type="flex" span={10} justify="space-around" key={id}>
                       <div className={styles.courseCard}>
                         <img src="https://img.mukewang.com/5b8e323900017f7406000338-240-135.jpg" alt="img" />
                         <div className={styles.mask}>

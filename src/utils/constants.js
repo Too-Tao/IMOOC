@@ -9,7 +9,7 @@ export const EMAIL_ADDRESS = [
   '@21cn.com'
 ]
 
-export const ECHARTS_COLOR = ["#f3c1c6", "#f0f69f", "#b0e0a8", "#e41749", "#5bd1d7", "#348498", "#dedede"]
+export const ECHARTS_COLOR = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1']
 
 export const IMOOC_LOGIN_TOKEN = 'IMOOC-LOGIN-TOKEN'
 
