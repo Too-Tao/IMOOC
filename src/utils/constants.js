@@ -11,7 +11,7 @@ export const EMAIL_ADDRESS = [
 
 export const ECHARTS_COLOR = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1']
 
-export const IMOOC_LOGIN_TOKEN = 'IMOOC-LOGIN-TOKEN'
+export const IMOOC_LOGIN_TOKEN = '_csrf_token'
 
 export const CAREER_DIRECTION = [
   { id: 0, value: '全部' },

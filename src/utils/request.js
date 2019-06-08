@@ -75,22 +75,21 @@ async function request(url, options = {}, method = 'GET', handleErrorType = 'err
         delete newOptions.body[item.name]
       }
     }
-    if (newOptions.body instanceof FormData) {
+    if (!(newOptions.body instanceof FormData) && !(newOptions.body instanceof URLSearchParams)) {
       newOptions.headers = {
         Accept: 'application/json',
-        ...newOptions.headers
+        "Content-Type": "application/json; charset=utf-8",
+        ...newOptions.headers,
       }
+      newOptions.body = JSON.stringify(newOptions.body)
     } else {
       newOptions.headers = {
         Accept: 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         ...newOptions.headers
       }
-      newOptions.body = options.headers
-        ? newOptions.body
-        : JSON.stringify(newOptions.body)
     }
-  } else if (newOptions === 'GET') {
+  } else if (newOptions.method === 'GET') {
     const { params = {} } = newOptions
     const shallowData = {...params}
     const match = pathToRegexp.parse(url)
