@@ -3,33 +3,53 @@
 
 export default {
   //用户信息
-  userInfoURL: '/userInfo',
+  // userInfoURL: '/userInfo',
   //login (登陆)
-  loginURL: 'POST /login',
+  // loginURL: 'POST /login',
   //退出登陆
-  logoutURL: '/logout',
+  // logoutURL: '/logout',
   //register (注册)
-  registerURL: 'POST /register',
+  // registerURL: 'POST /register',
   //dashboard (首页)
-  dashboardURL: '/dashboard',
+  // dashboardURL: '/dashboard',
   //推荐课程页数据
-  courseRecommendationDataURL: '/courseRecommendation',
+  // courseRecommendationDataURL: '/courseRecommendation',
   //课程分类数据
-  courseCatagoryListURL: '/course/catagory/list',
+  // courseCatagoryListURL: '/course/catagory/list',
   //courseRecommendation （课程详情页）
-  queryCourseDetailURL: '/search/course/getall/:id',
+  // queryCourseDetailURL: '/search/course/getall/:id',
   //数据分析页面数据
-  dataAnalysisDataURL: '/dataAnalysisData',
+  // dataAnalysisDataURL: '/dataAnalysisData',
 
   //用户管理页面
-  tableDataURL: '/tableData',
+  // tableDataURL: '/tableData',
   //新增用户
-  addUserURL: 'POST /addUser',
+  // addUserURL: 'POST /addUser',
   //编辑用户
-  editUserMsgURL: 'POST /editUserMsg',
+  // editUserMsgURL: 'POST /editUserMsg',
   //删除用户
-  removeUserURL: 'POST /removeUser',
+  // removeUserURL: 'POST /removeUser',
   //教师信息
-  teacherListURL: '/teacherList',
-  teacherDetailURL: 'POST /teacherDetail'
+  // teacherListURL: '/teacherList',
+  // teacherDetailURL: 'POST /teacherDetail'
+
+//=======================================================
+//登陆页
+  //login (登陆)
+  loginURL: 'POST /auth/userlogin',
+  //退出登陆
+  logoutURL: 'POST /auth/userlogout',
+  //register (注册)
+  registerURL: 'POST /auth/register',
+  //token
+  tokenURL: '/auth/userjwt',
+//用户管理
+  //获取用户列表
+  getTableData: '/ucenter/list/:id/:id',
+  //新增用户
+  addUserURL: 'POST /ucenter/add',
+  // 编辑用户
+  editUserMsgURL: 'PUT /ucenter/edit/:id',
+  // 删除用户
+  removeUserURL: 'DELETE /ucenter/:id',
 }

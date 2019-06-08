@@ -17,7 +17,7 @@ const gen = (params) => {
   return async (opt) => {
     const options = method === 'GET'
       ? { params: { ...opt } }
-      : { body: { ...opt } }
+      : { body: opt }
     return request(`/api${url}`, options, method, errorType)
   }
 }
