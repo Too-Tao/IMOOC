@@ -11,20 +11,19 @@
     title: '课程详情',
     noShowInMenu: true
   }, {
-    path: './dataAnalysis',
+    path: '/dataAnalysis',
     iconType: 'area-chart',
     title: '数据分析',
     component: './dataAnalysis/index'
   },
   {
-    path: './teacherManage',
+    path: '/teacherManage',
     iconType: 'fire',
     title: '热门教师推荐',
     component: './teacherManage/index',
-    exclude: 101001
   },
   {
-    path: './teacherDetail/:id',
+    path: '/teacherDetail/:id',
     title: '教师详情',
     component: './teacherDetail/index',
     noShowInMenu: true
@@ -34,27 +33,20 @@
     iconType: 'video-camera',
     title: '课程管理',
     component: './courseManage/index',
-    exclude: 101001
+    exclude: '101001'
   },
-  // {
-  //   path: './commentManage',
-  //   iconType: 'message',
-  //   title: '评论管理',
-  //   component: './commentManage/index',
-  //   exclude: 101001
-  // },
   {
-    path: './classifiedManage',
+    path: '/classifiedManage',
     iconType: 'read',
-    title: '分类管理',
+    title: '课程分类',
     component: './classifiedManage/index',
-    exclude: 101001
+    exclude: '101001'
   }, {
-    path: './userManage',
+    path: '/userManage',
     iconType: 'user',
     title: '用户管理',
     component: './userManage/index',
-    exclude: 101001
+    exclude: '101001'
   }
 ]
 
