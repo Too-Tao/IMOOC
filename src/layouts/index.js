@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout } from 'antd'
 import router from 'umi/router'
 import { connect } from 'dva'
+import Cookie from 'cookiejs'
 import GlobalHeader from '@/components/GlobalHeader'
 import GlobalSideMenu from '@/components/GlobalSideMenu'
 import GlobalFooter from '@/components/GlobalFooter'
@@ -22,7 +23,11 @@ class BasicLayout extends React.Component {
   }
 
   componentDidMount () {
-    this.props.dispatch({ type: 'global/getUserInfo', callback: this.getUserInfoCallback })
+    if (Cookie.get('uid')) {
+      this.props.dispatch({ type: 'global/getUserInfo', callback: this.getUserInfoCallback })
+    } else {
+      router.push('/login')
+    }
   }
 
   getUserInfoCallback = () => {
@@ -44,6 +49,7 @@ class BasicLayout extends React.Component {
     const { children, location } = this.props
     const loginLayoutRoutes = ['/login']
     const { pathname } = location
+    // console.log(this.props.userInfo)
     if (loginLayoutRoutes.includes(pathname)) {
       return (
         <div>{children}</div>
