@@ -4,22 +4,6 @@ import { Table, Spin } from 'antd'
 import { connect } from 'dva'
 import styles from './styles/index.less'
 
-
-const tableData = [
-  { id: '0', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '1', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '2', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '3', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '4', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '5', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '6', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '7', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '8', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '9', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '10', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-  { id: '11', teacherId: '0001', teacherName: '哇哈哈', teacherJob: '高级前端工程师', fans: '123' },
-]
-
 const mapStateToProps = ({ loading, teacher }) => {
   return {
     loading: loading.effects['teacher/getList'],
@@ -30,14 +14,20 @@ const mapStateToProps = ({ loading, teacher }) => {
 @connect(mapStateToProps)
 class TeacherManage extends Component {
 
+  state = {
+    query: {
+      size: 10
+    }
+  }
+
   componentDidMount () {
-    this.props.dispatch({ type: 'teacher/getList' })
+    this.props.dispatch({ type: 'teacher/getList', payload: this.state.query })
   }
 
   setRowKey = (record) => record.id.toString()
 
   render () {
-    const { list } = this.props.listData
+    const { listData } = this.props
     const { loading } = this.props
     const columns = [
       { title: '教师ID', dataIndex: 'id' },
@@ -73,7 +63,7 @@ class TeacherManage extends Component {
           <Table
             rowKey={this.setRowKey}
             columns={columns}
-            dataSource={list}
+            dataSource={listData instanceof Array ? listData : []}
             pagination={{
               style: { textAlign: 'center', width: '100%' }
             }}
