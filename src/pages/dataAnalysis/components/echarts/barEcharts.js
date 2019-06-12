@@ -8,8 +8,22 @@ import 'echarts/lib/component/legend'
 import { ECHARTS_COLOR } from 'utils/constants'
 
 class BarEcharts extends PureComponent {
+
+  getData = (chartData) => {
+    let data = {}
+    let xAxisData = []
+    let seriesData = []
+    for (let i = 0; i < chartData.length; i++) {
+      xAxisData.unshift(chartData[i].name)
+      seriesData.unshift(chartData[i].value)
+    }
+    data = {xAxisData,seriesData}
+    return data
+  }
+
   render () {
-    const { title } = this.props
+    const { title, chartData } = this.props
+    const data = this.getData(chartData)
     const option = {
       title: {
         text: title,
@@ -22,19 +36,19 @@ class BarEcharts extends PureComponent {
       color: ECHARTS_COLOR,
       tooltip: {
         trigger: 'axis',
-        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        axisPointer: {
+          type: 'shadow'
         }
       },
       xAxis: {
         type: 'category',
-        data: ['<7.5', '7.5-7.9', '8.0-8.4', '8.5-8.9', '9.0-9.4', '9.5-9.9', '10']
+        data: data.xAxisData
       },
       yAxis: {
           type: 'value'
       },
       series: [{
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: data.seriesData,
           type: 'bar'
       }]
     }

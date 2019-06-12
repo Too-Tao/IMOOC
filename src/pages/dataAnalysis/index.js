@@ -10,65 +10,79 @@ import LineEcharts from './components/echarts/lineEcharts'
 
 const mapStateToProps = ({ loading, dataAnalysis }) => {
   return {
-    loading: loading.effects['dataAnalysis/getDataAnalysisData'],
-    dataAnalysisData: dataAnalysis.dataAnalysisData
+    loading1: loading.effects['dataAnalysis/getBarEchartsData'],
+    loading2: loading.effects['dataAnalysis/getLineEchartsData'],
+    loading3: loading.effects['dataAnalysis/getCourseDifficultData'],
+    loading4: loading.effects['dataAnalysis/getCourseTypeData'],
+    loading5: loading.effects['dataAnalysis/getTeacherTitleData'],
+    barEchartsData: dataAnalysis.barEchartsData,
+    lineEchartsData: dataAnalysis.lineEchartsData,
+    courseDifficultData: dataAnalysis.courseDifficultData,
+    courseTypeData: dataAnalysis.courseTypeData,
+    teacherTitleData: dataAnalysis.teacherTitleData
   }
 }
 
 @connect(mapStateToProps)
 class DataAnalysis extends Component {
-  state = {
-    dataAnalysisData: {}
-  }
   componentDidMount () {
-    this.props.dispatch({ type: 'dataAnalysis/getDataAnalysisData', callback: this.getData })
-  }
-
-  getData = (data) => {
-    this.setState(() => {
-      return {
-        dataAnalysisData: data
-      }
-    })
+    this.props.dispatch({ type: 'dataAnalysis/getBarEchartsData' })
+    this.props.dispatch({ type: 'dataAnalysis/getLineEchartsData' })
+    this.props.dispatch({ type: 'dataAnalysis/getCourseDifficultData' })
+    this.props.dispatch({ type: 'dataAnalysis/getCourseTypeData' })
+    this.props.dispatch({ type: 'dataAnalysis/getTeacherTitleData' })
   }
 
   render () {
-    const { loading } = this.props
-    const { courseDifficultyData, courseCategoryData, teacherTitleData } = this.state.dataAnalysisData
+    const { loading1,
+            loading2,
+            loading3,
+            loading4,
+            loading5,
+            barEchartsData,
+            lineEchartsData,
+            courseDifficultData,
+            courseTypeData,
+            teacherTitleData
+          } = this.props
     return (
       <div>
         <Row gutter={24}>
           <Col span={12}>
-            <div className={styles.echartsHeaderItem}>
-              <BarEcharts title="课程评分与数量" />
-            </div>
+            <Spin spinning={loading1}>
+              <div className={styles.echartsHeaderItem}>
+                <BarEcharts title="课程评分与数量" chartData={barEchartsData} />
+              </div>
+            </Spin>
           </Col>
           <Col span={12}>
-            <div className={styles.echartsHeaderItem}>
-              <LineEcharts title="课程分类与课程数量" />
-            </div>
+            <Spin spinning={loading2}>
+              <div className={styles.echartsHeaderItem}>
+                <LineEcharts title="课程分类与数量" chartData={lineEchartsData} />
+              </div>
+            </Spin>
           </Col>
         </Row>
         <div className={styles.rowWrap}>
           <Row gutter={12}>
             <Col span={8}>
-              <Spin spinning={loading}>
+              <Spin spinning={loading3}>
                 <div className={styles.echartsFooterItem}>
-                  <HollowPieEcharts title="课程难度" chartData={courseDifficultyData} />
+                  <HollowPieEcharts title="课程难度" chartData={courseDifficultData} />
                 </div>
               </Spin>
             </Col>
             <Col span={8}>
-              <Spin spinning={loading}>
+              <Spin spinning={loading4}>
                 <div className={styles.echartsFooterItem}>
-                  <SolidPieEcharts title="课程类别" chartData={courseCategoryData} />
+                  <SolidPieEcharts title="课程类别" chartData={courseTypeData} />
                 </div>
               </Spin>
             </Col>
             <Col span={8}>
-              <Spin spinning={loading}>
+              <Spin spinning={loading5}>
                 <div className={styles.echartsFooterItem}>
-                  <SolidPieEcharts title="教师头衔" chartData={teacherTitleData} />
+                  <SolidPieEcharts title="教师职业" chartData={teacherTitleData} />
                 </div>
               </Spin>
             </Col>
