@@ -1,11 +1,10 @@
 /* eslint-disable no-script-url */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-import { Form, Input, Icon, Button, notification, Modal, message } from 'antd'
+import { Form, Input, Icon, Button, notification, Modal } from 'antd'
 import { connect } from 'dva'
 import Cookie from 'cookiejs'
 import router from 'umi/router'
-import { IMOOC_LOGIN_TOKEN } from 'utils/constants'
 import RegistrationForm from './components/register/index'
 import styles from './styles/index.less'
 import logoPng from 'images/login/logo.png'
@@ -19,7 +18,7 @@ const openNotificationWithIcon = type => {
   })
 }
 
-const mapStateToProps = ({ loading, login }) => {
+const mapStateToProps = ({ loading, login, global }) => {
   return {
     loading: loading.effects['login/login']
   }
@@ -37,15 +36,31 @@ class Login extends Component {
     const { dispatch, form } = this.props
     form.validateFields((err, values) => {
       if (!err) {
-        dispatch({ type: 'login/login', payload: values, callback: this.loginCallback })
+        const data = new URLSearchParams(values)
+        dispatch({ type: 'login/login', payload: data, callback: this.loginCallback })
       }
     })
   }
 
-  loginCallback = () => {
-    Cookie.set(IMOOC_LOGIN_TOKEN, 'true')
-    router.replace('/')
-    message.success('登陆成功')
+  loginCallback = (responseData) => {
+    const { success, message, token } = responseData
+    if (success) {
+        Cookie.set('uid', token)
+        this.props.dispatch({ type: 'global/getUserInfo', callback: this.getTokenCallback })
+    } else {
+      message.error(message)
+    }
+  }
+
+  getTokenCallback = (responseData) => {
+    const { success, message, jwt } = responseData
+    if (success) {
+      window.localStorage.setItem('token', jwt)
+      router.replace('/')
+      message.success('登陆成功')
+    } else {
+      message.error(message)
+    }
   }
 
   handleRegisteredModal = (flag) => {

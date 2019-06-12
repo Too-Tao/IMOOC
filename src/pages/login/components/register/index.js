@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, message, AutoComplete } from 'antd'
+import { Form, Input, Button, AutoComplete } from 'antd'
 import { connect } from 'dva'
 import styles from './styles/index.less'
 import { validatorName, validatorPassword, validatorEmail, validatorPhone } from 'utils/validator.js'
@@ -34,7 +34,7 @@ class Registration extends Component {
 
   comparePassword = (rule, value, callback) => {
     const { getFieldValue } = this.props.form
-    if (value !== getFieldValue('password_register')) {
+    if (value !== getFieldValue('password')) {
       callback('两次密码输入不一致')
     } else {
       callback()
@@ -61,16 +61,22 @@ class Registration extends Component {
     const { form, dispatch } = this.props
     e.preventDefault()
     form.validateFields((err, values) => {
-      delete values.confirm_password_register
+      delete values.confirm_password
       if (!err) {
-        dispatch({ type: 'login/register', payload: values, callback: this.handleRegisterCallback })
+        const data = new URLSearchParams(values)
+        dispatch({ type: 'login/register', payload: data, callback: this.handleRegisterCallback })
       }
     })
   }
 
-  handleRegisterCallback = () => {
-    this.handleCancelRegister()
-    message.success('注册成功')
+  handleRegisterCallback = (responseData) => {
+    const { success, message } = responseData
+    if (success) {
+      this.handleCancelRegister()
+      message.success('注册成功')
+    } else {
+      message.error(message)
+    }
   }
 
   handleCancelRegister = () => {
@@ -88,7 +94,7 @@ class Registration extends Component {
     return (
       <Form {...formLayout} colon={false} hideRequiredMark={true} onSubmit={this.handleSubmitRegister}>
         <FormItem label="用户名">
-          {getFieldDecorator('username_register', {
+          {getFieldDecorator('username', {
               rules: usernameRules,
               validateTrigger: 'onBlur'
             })(
@@ -96,8 +102,17 @@ class Registration extends Component {
             )
           }
         </FormItem>
+        <FormItem label="姓名">
+        {getFieldDecorator('name', {
+            rules: usernameRules,
+            validateTrigger: 'onBlur',
+          })(
+            <Input placeholder="请输入你的姓名" />
+          )
+          }
+        </FormItem>
         <FormItem label="密码">
-          {getFieldDecorator('password_register', {
+          {getFieldDecorator('password', {
               rules: passwordRules,
               validateTrigger: 'onBlur'
             })(
@@ -106,7 +121,7 @@ class Registration extends Component {
           }
         </FormItem>
         <FormItem label="确认密码">
-          {getFieldDecorator('confirm_password_register', {
+          {getFieldDecorator('confirm_password', {
               rules: [{ required: true, message: '请确认密码' }, { validator: this.comparePassword }],
               validateTrigger: 'onBlur'
             })(

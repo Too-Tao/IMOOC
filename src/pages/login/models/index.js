@@ -14,17 +14,17 @@ export default {
       const loginStatus = yield call(loginURL, payload)
       yield put({ type: 'savaPayload', payload: loginStatus })
       if (loginStatus) {
-        callback()
+        callback(loginStatus)
         return
       }
     },
     *register ({ payload, callback }, { call }) {
       const registerStatus = yield call(registerURL, payload)
       if (registerStatus) {
-        callback()
+        callback(registerStatus)
         return
       }
-    }
+    },
   },
   reducers: {
     savaPayload (state, { payload }) {
