@@ -1,10 +1,10 @@
 import api from '@/services'
 import router from 'umi/router'
+import jwtDecode from 'jwt-decode'
 import Cookie from 'cookiejs'
 import { message } from 'antd'
-import { IMOOC_LOGIN_TOKEN } from '@/utils/constants'
 
-const { logoutURL, userInfoURL } = api
+const { logoutURL, tokenURL } = api
 
 export default {
   namespace: 'global',
@@ -16,24 +16,28 @@ export default {
       const logoutStatus = yield call(logoutURL)
       if (logoutStatus) {
         message.success('已安全退出')
-        Cookie.remove(IMOOC_LOGIN_TOKEN)
+        Cookie.remove('uid')
         router.push('/login')
       }
     },
     *getUserInfo ({ callback }, { call, put }) {
-      const userInfoData = yield call(userInfoURL)
+      const userInfoData = yield call(tokenURL)
       yield put({ type: 'saveUserInfo', payload: userInfoData })
-      if (userInfoData) {
-        callback()
+      if (userInfoData.success) {
+        callback(userInfoData)
         return
+      } else {
+        router.push('/login')
       }
     },
   },
   reducers: {
     saveUserInfo (state, { payload }) {
+      const { jwt } = payload
+      const decoded = jwtDecode(jwt)
       return {
         ...state,
-        ...payload
+        userInfo: decoded
       }
     },
   }
