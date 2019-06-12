@@ -1,38 +1,39 @@
 import api from '@/services'
 
-const { courseRecommendationDataURL, courseCatagoryListURL } = api
+const { courseRecommendationDataURL, classifiedURL } = api
 
 export default {
   namespace: 'courseRecommendation',
   state: {
     listData: [],
-    typeData: {}
+    typeData: [],
+    total: 0
   },
   effects: {
-    *getListData (_, { call, put }) {
-      const listData = yield call(courseRecommendationDataURL)
+    *getListData ({ payload }, { call, put }) {
+      const listData = yield call(courseRecommendationDataURL, payload)
       yield put({ type: 'savePayload', payload: listData })
     },
-    *getCourseType ({ callback }, { call, put }) {
-      const typeData = yield call(courseCatagoryListURL)
+    *getCourseType (_, { call, put }) {
+      const typeData = yield call(classifiedURL)
       yield put({ type: 'saveTypePayload', payload: typeData })
-      if (typeData) {
-        callback(typeData)
-        return
-      }
     }
   },
   reducers: {
     savePayload (state, { payload }) {
+
+      const { queryResult } = payload
       return {
         ...state,
-        listData: payload.courseData
+        listData: queryResult.list,
+        total: queryResult.total
       }
     },
     saveTypePayload (state, { payload }) {
+      const { children } = payload
       return {
         ...state,
-        typeData: payload
+        typeData: children
       }
     }
   }

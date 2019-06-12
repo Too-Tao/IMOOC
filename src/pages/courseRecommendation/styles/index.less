@@ -28,52 +28,61 @@
   .classificationWrap {
     padding: 16px 0 8px;
     border-bottom: 1px solid #edf1f2;
+    
   }
-  .classificationWrap:hover {
-    top: -17px;
-    margin: 0 -10px;
-    padding: 16px 9px;
-    background: #fff;
-    border: 1px solid rgba(28,31,33,.1);
-    box-shadow: 0 8px 16px 0 rgba(28,31,33,.2);
-    border-radius: 8px;
-    height: 230px;
-    animation-duration: .3s;
-    animation-fill-mode: both;
-    animation-name: skillIn;
-    .ulWrap {
-      margin-left: 52px;
-      height: 215px;
-      overflow: visible;
-    }
-    @keyframes skillIn {
-      from {
-        height: 132px;
-        overflow: hidden;
-      }
-      to {
-        height: 230px;
-        overflow: visible;
-      }
-    }
-  }
+  // .classificationWrap:hover {
+  //   top: -17px;
+  //   margin: 0 -10px;
+  //   padding: 16px 9px;
+  //   background: #fff;
+  //   border: 1px solid rgba(28,31,33,.1);
+  //   box-shadow: 0 8px 16px 0 rgba(28,31,33,.2);
+  //   border-radius: 8px;
+  //   height: 230px;
+  //   animation-duration: .3s;
+  //   animation-fill-mode: both;
+  //   animation-name: skillIn;
+  //   .ulWrap {
+  //     margin-left: 52px;
+  //     height: 215px;
+  //     overflow: visible;
+  //   }
+  //   @keyframes skillIn {
+  //     from {
+  //       height: 132px;
+  //       overflow: hidden;
+  //     }
+  //     to {
+  //       height: 230px;
+  //       overflow: visible;
+  //     }
+  //   }
+  // }
   .ulWrap {
     overflow: hidden;
-    max-height: 100px;
+    .all {
+      float: left;
+      line-height: 32px;
+      font-size: 14px;
+      padding: 0 10px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
     & > ul {
       margin-bottom: 0;
     }
     & > ul > li {
       display: inline-block;
       margin: 0 4px;
-      & > a {
-        display: block;
+      & > span {
+        display: inline-block;
         line-height: 14px;
         padding: 10px;
         font-size: 14px;
         color: #333333;
       }
-      & > a:hover {
+      & > span:hover {
+        cursor: pointer;
         color: red;
       }
     }
@@ -81,7 +90,7 @@
       background: rgba(242,13,13,.06);
       border-radius: 6px;
       font-weight: 700;
-      & > a {
+      & > span {
         color: #f20d0d;
       }
     }
