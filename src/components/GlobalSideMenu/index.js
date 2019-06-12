@@ -24,6 +24,10 @@ class SideMenu extends PureComponent {
     collapsed: false
   }
 
+  componentDidMount () {
+
+  }
+
   filterRoleMenu = (menuRoutesData) => {
     const { userInfo } = this.props
     const { utype } = userInfo
@@ -31,15 +35,17 @@ class SideMenu extends PureComponent {
   }
 
   filterMethods = (menuRoutesData, utype) => {
+    // console.log(utype)
     return menuRoutesData.filter(item => {
       let { exclude } = item
-      return exclude && exclude === (utype) ? null : item
+      return !!exclude && exclude === utype ? null : item
     })
   }
 
   render () {
     const { collapsed } = this.props
     const menuRoutesDataFilter = this.filterRoleMenu(menuRoutesData)
+    // console.log(menuRoutesDataFilter)
     return (
       <div>
         <Sider className={styles.sideStyle} trigger={null} collapsible collapsed={collapsed}>
