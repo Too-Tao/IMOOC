@@ -1,30 +1,14 @@
 import React, { PureComponent } from 'react'
-import { Layout, Icon, Dropdown, Menu, Modal } from 'antd'
+import { Layout, Icon, Popover , Modal } from 'antd'
 import { connect } from 'dva'
 import styles from './index.less'
 
 const { Header } = Layout
-const MenuItem = Menu.Item
-const menu = (
-  <Menu>
-    <MenuItem>
-      <a href="/">
-        <Icon type="user" />
-        <span className={styles.dropdownSpan}>个人中心</span>
-      </a>
-    </MenuItem>
-    <MenuItem>
-      <a href="/">
-        <Icon type="setting" />
-        <span className={styles.dropdownSpan}>个人设置</span>
-      </a>
-    </MenuItem>
-  </Menu>
-)
 
 const mapStateToProps = ({ loading, global }) => {
   return {
-    loading: loading.effects['global/logout']
+    loading: loading.effects['global/logout'],
+    userInfo: global.userInfo
   }
 }
 @connect(mapStateToProps)
@@ -40,17 +24,25 @@ class GlobalHeader extends PureComponent {
     })
   }
 
+  handleLogout = () => {
+    this.props.dispatch({ type: 'global/logout' })
+  }
+
   modalConfig = () => {
     Modal.confirm({
       title: '提示',
       content: '是否确认退出登陆？',
       okText: '确认',
       cancelText: '取消',
-      onOk: () => { this.props.dispatch({ type: 'global/logout' }) }
+      onOk: this.handleLogout
     })
   }
   render () {
-    const { collapsed } = this.props
+    const { collapsed, userInfo } = this.props
+    const { name, utype } = userInfo
+    const popoverContent = (
+      <div>当前用户为{ utype === '101003' ? '超级管理员' : '普通用户'}</div>
+    )
     return (
       <Header className={styles.HeaderStyle}>
         <span onClick={this.toggle}>
@@ -60,14 +52,14 @@ class GlobalHeader extends PureComponent {
           />
         </span>
         <span className={styles.headerRight}>
-          <Dropdown overlay={menu} placement="bottomCenter">
+          <Popover  content={popoverContent}>
             <span>
               <span className={styles.userPic}>
                 <img src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" alt="userPic"/>
               </span>
-              <span>Jack Ma</span>
+              <span>{ !!name ? name : '用户一' }</span>
             </span>
-          </Dropdown>
+          </Popover >
           <span onClick={this.modalConfig}>
             <Icon type="logout" />
           </span>
