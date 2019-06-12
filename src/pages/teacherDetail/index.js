@@ -74,10 +74,10 @@ class TeacherDetail extends Component {
             <Row gutter={24} type="flex" justify="center">
               {
                 !!courseBaseList
-                ? courseBaseList.map(({ id, courseName, courseDescribe, studyHref }) => (
+                ? courseBaseList.map(({ id, courseName, coursePic ,courseDescribe, studyHref }) => (
                     <Col type="flex" span={10} justify="space-around" key={id}>
                       <div className={styles.courseCard}>
-                        <img src="https://img.mukewang.com/5b8e323900017f7406000338-240-135.jpg" alt="img" />
+                        <img src={coursePic} alt="img" />
                         <div className={styles.mask}>
                           <div className={styles.courseMsgWrap}>
                             <p>{courseName}</p>

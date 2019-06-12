@@ -17,7 +17,7 @@ export default {
     savePayload (state, { payload }) {
       return {
         ...state,
-        ...payload
+        data: payload
       }
     }
   }
