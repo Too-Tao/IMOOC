@@ -2,7 +2,6 @@ import fetch from 'dva/fetch'
 import pathToRegexp from 'path-to-regexp'
 import { typeOf, isEmptyObject } from '@/utils/common'
 import { stringify } from 'qs'
-import Cookies from 'cookiejs'
 import router from 'umi/router'
 import { notification } from 'antd'
 
@@ -33,6 +32,7 @@ function checkStatus(response) {
   }
   const errorText = codeMessage[status]
   if (status === 401) {
+    window.localStorage.clear('token')
     router.push('/')
   } else {
     notification.error({
@@ -58,7 +58,7 @@ async function request(url, options = {}, method = 'GET', handleErrorType = 'err
   const newOptions = {
     'credentials': 'include', // Fetch 请求默认是不带 cookie 的，设置此项即可
     headers: {
-      'X-CSRFToken': Cookies.get('_csrf_token'), // token
+      'Authorization': 'Bearer ' + window.localStorage.getItem('token'), // token
     },
     method,
     ...options
