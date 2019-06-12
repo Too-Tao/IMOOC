@@ -1,35 +1,10 @@
 import React, { Component } from 'react'
 import { Carousel, Row, Col, Icon } from 'antd'
-import { connect } from 'dva'
+import { RECOMMEND_DATA, SWIPPER_IMG_DATA } from 'utils/constants.js'
 import styles from './styles/index.less'
 
-const mapStateToProps = ({ loading, dashboard }) => {
-  return {
-    loading: loading.effects['dashboard/getDashboardData'],
-    dashboardData: dashboard.dashboardData
-  }
-}
-@connect(mapStateToProps)
+
 class Dashboard extends Component {
-
-  state = {
-    dashboardData: {
-      swipperImg: [],
-      recommendData: []
-    }
-  }
-
-  componentDidMount () {
-    this.props.dispatch({ type: 'dashboard/getDashboardData', callback: this.getData })
-  }
-
-  getData = (dashboardData) => {
-    this.setState(() => {
-      return {
-        dashboardData
-      }
-    })
-  }
 
   handleToPrev = () => {
     this.refs.img.prev()
@@ -40,7 +15,6 @@ class Dashboard extends Component {
   }
 
   render () {
-    const { swipperImg, recommendData } = this.state.dashboardData
     return (
       <div className={styles.wrapper}>
         <div className={styles.carouselWrapper}>
@@ -49,7 +23,7 @@ class Dashboard extends Component {
           </div>
           <Carousel autoplay effect="fade" ref="img">
             {
-              swipperImg.map(({ id, imgUrl, link }) => (
+              SWIPPER_IMG_DATA.map(({ id, imgUrl, link }) => (
                 <a className={styles.aStyle} key={id} href={link} target="_blank" rel="noopener noreferrer"><img src={imgUrl} alt="courseImg"/></a>
               ))
             }
@@ -71,7 +45,7 @@ class Dashboard extends Component {
           <div className={styles.RowWrap}>
             <Row type="flex" justify="center">
               {
-                recommendData.map(({id, imgUrl, title, link}) => (
+                RECOMMEND_DATA.map(({id, imgUrl, title, link}) => (
                   <Col span={5} key={id}>
                     <a className={styles.card} href={link} target="_blank" rel="noopener noreferrer" >
                       <div className={styles.cardPic}>
