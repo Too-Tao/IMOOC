@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'dva'
-import { Table, Divider, Button, Icon, Spin, Modal, message } from 'antd'
+import { Table, Divider, Button, Icon, Spin, Modal, message, Popover } from 'antd'
 import styles from './styles/index.less'
 import AddUserForm from './components/addUser/index'
 
 
-const mapStateToProps = ({ loading, userManage }) => {
+const mapStateToProps = ({ loading, userManage, global }) => {
   return {
     loading: loading.effects['userManage/getTableData'],
-    tableData: userManage.tableData
+    tableData: userManage.tableData,
+    total: userManage.total,
+    userInfo: global.userInfo
   }
 }
 
@@ -19,11 +21,20 @@ class userManage extends Component {
     showAddUserModal: false,
     showEditModal: false,
     isEdit: false,
-    editModalData: []
+    editModalData: [],
+    query: {
+      page: 1,
+      pageSize: 5
+    }
   }
 
   componentDidMount () {
-    this.props.dispatch({ type: 'userManage/getTableData' })
+    const { query } = this.state
+    this.getTableDataFun(query)
+  }
+
+  getTableDataFun = (params) => {
+    this.props.dispatch({ type: 'userManage/getTableData', payload: params })
   }
 
   handleClickAddUser = () => {
@@ -37,7 +48,6 @@ class userManage extends Component {
   }
 
   handleShowAddUser = (flag) => {
-
     this.setState(() => {
       return { showAddUserModal: flag }
     })
@@ -71,8 +81,23 @@ class userManage extends Component {
   }
 
   removeCallback = () => {
-    this.props.dispatch({ type: 'userManage/getTableData' })
+    this.props.dispatch({ type: 'userManage/getTableData', payload: this.state.query })
     message.success('成功删除该用户')
+  }
+
+  handleChangePage = (pagination) => {
+    const { current, pageSize } = pagination
+    this.setState(() => {
+      return {
+        query: {
+          page: current,
+          pageSize
+        }
+      }
+    }, () => {
+      const { query } = this.state
+      this.getTableDataFun(query)
+    })
   }
 
   setRowKey = (record) => record.id.toString()
@@ -80,17 +105,34 @@ class userManage extends Component {
   showTotal = (total) => `共有${total}个用户`
 
   render () {
-    const { showAddUserModal, editModalData, isEdit } = this.state
-    const { tableData, loading } = this.props
+    const { showAddUserModal, editModalData, isEdit, query } = this.state
+    const { tableData, loading, total, userInfo } = this.props
+    const userId = userInfo.id
+    const popoverContent = (
+      <div>我</div>
+    )
     const columns = [
-      { title: '用户名', dataIndex: 'username' },
       {
-        title: '用户角色',
-        dataIndex: 'userType',
-        render: (userType) => (
+        title: '用户名',
+        dataIndex: 'username',
+        render: (username, { id }) => (
           <div>
             {
-              userType === 0
+              userId === id
+              ? <Popover content={popoverContent}><Icon type="eye" theme="twoTone" style={{ fontSize: 18, marginRight: 10 }} />{username}</Popover>
+              : <div>{username}</div>
+            }
+          </div>
+        )
+      },
+      { title: '姓名', dataIndex: 'name'},
+      {
+        title: '用户角色',
+        dataIndex: 'utype',
+        render: (utype) => (
+          <div>
+            {
+              utype === '101003'
               ? <span>超级管理员</span>
               : <span>普通用户</span>
             }
@@ -103,10 +145,16 @@ class userManage extends Component {
         title: '操作',
         dataIndex: 'id',
         render: (id, record) => (
-          <div className={styles.operating}>
-            <span onClick={ () => this.handleEdit(record)}>编辑</span>
-            <Divider type="vertical" style={{ background: '#20a0ff' }} />
-            <span onClick={() => this.showRemoveModal(id, record.username)}>删除</span>
+          <div>
+            {
+              userId === record.id
+              ? <span className={styles.operating} onClick={ () => this.handleEdit(record)}>编辑</span>
+              : <div>
+                  <span className={styles.operating} onClick={ () => this.handleEdit(record)}>编辑</span>
+                  <Divider type="vertical" style={{ background: '#20a0ff' }} />
+                  <span className={styles.operating} onClick={() => this.showRemoveModal(id, record.username)}>删除</span>
+                </div>
+            }
           </div>
         )
       }
@@ -127,16 +175,19 @@ class userManage extends Component {
             dataSource={tableData}
             pagination={{
               size: "small",
-              total: tableData.length,
+              total: total,
               showTotal: this.showTotal,
-              style: { textAlign: 'center', width: '100%' }
+              style: { textAlign: 'center', width: '100%' },
+              pageSize: query.pageSize
             }}
+            onChange = {this.handleChangePage}
           />
         </Spin>
         <Modal
           footer={null}
           visible={showAddUserModal}
           onCancel={() => this.handleShowAddUser(false)}
+          destroyOnClose={true}
         >
           <div>
             {

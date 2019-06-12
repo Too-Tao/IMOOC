@@ -1,44 +1,52 @@
 import api from '@/services'
+import { message } from 'antd'
 
-const { tableDataURL, addUserURL, editUserMsgURL, removeUserURL } = api
+const { getTableDataURL, addUserURL, editUserMsgURL, removeUserURL } = api
 
 export default {
   namespace: 'userManage',
   state: {
-    tableData: []
+    tableData: [],
+    total: 0
   },
   effects: {
-    *getTableData (_, { call, put }) {
-      const tableData = yield call(tableDataURL)
-      yield put({ type: 'savePayload', payload: tableData })
+    *getTableData ({ payload }, { call, put }) {
+      const tableData = yield call(getTableDataURL, payload)
+      yield put({ type: 'saveTablePayload', payload: tableData })
     },
     *addUser ({ payload, callback }, { call }) {
       const addUserStatus = yield call(addUserURL, payload)
       if (addUserStatus) {
-        callback()
+        callback(addUserStatus)
         return
       }
     },
     *editUserMsg ({ payload, callback }, { call }) {
       const editUserMsgStatus = yield call(editUserMsgURL, payload)
-      if (editUserMsgStatus) {
-        callback()
+      if (editUserMsgStatus.success) {
+        callback(editUserMsgStatus)
         return
       }
     },
     *removeUser ({ payload, callback }, { call }) {
       const removeUserStatus = yield call(removeUserURL, payload)
-      if (removeUserStatus) {
+      const responseData = JSON.parse(removeUserStatus)
+      if (responseData.success) {
         callback()
         return
+      } else {
+        message.error(responseData.message)
       }
     }
   },
   reducers: {
-    savePayload (state, { payload }) {
+    saveTablePayload (state, { payload }) {
+      const { queryResult } = payload
+      const { list, total } = queryResult
       return {
         ...state,
-        ...payload
+        tableData: list,
+        total: total
       }
     }
   }

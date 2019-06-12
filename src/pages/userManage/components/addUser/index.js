@@ -16,6 +16,7 @@ const formLayout = {
 
 const rulesData = {
   usernameRules: [{ required: true, message: '请输入用户名' }, { validator: validatorName }],
+  nameRules: [{ required: true, message: '请输入你的姓名' }, { validator: validatorName }],
   passwordRules: [{ required: true, message: '请输入密码' }, { validator: validatorPassword }],
   emailRules: [{ required: true, message: '请输入邮箱地址' }, { validator: validatorEmail }],
   phoneRules: [{ required: true, message: '请输入联系电话' }, { validator: validatorPhone }]
@@ -31,12 +32,17 @@ const mapStateToProps = ({ loading, userManage }) => {
 class AddUser extends Component {
 
   state = {
-    autoCompleteResult: []
+    autoCompleteResult: [],
+    buttonLoading: false,
+    query: {
+      page: 1,
+      pageSize: 5
+    }
   }
 
   comparePassword = (rule, value, callback) => {
     const { getFieldValue } = this.props.form
-    if (value !== getFieldValue('password_register')) {
+    if (value !== getFieldValue('password')) {
       callback('两次密码输入不一致')
     } else {
       callback()
@@ -44,29 +50,71 @@ class AddUser extends Component {
   }
 
   handleSubmitAddUser = (e) => {
-    const { form, dispatch, isEdit } = this.props
     e.preventDefault()
+    this.submitFormData()
+  }
+
+  submitFormData = () => {
+    const { form, dispatch, isEdit, formData } = this.props
+    const { id } = formData
     form.validateFields((err, values) => {
       if (!err) {
-        if (isEdit) {
-          dispatch({ type: 'userManage/editUserMsg', payload: values, callback: this.dispatchCallback })
-        } else {
-          delete values.confirm_password_register
-          dispatch({ type: 'userManage/addUser', payload: values, callback: this.dispatchCallback })
+        const obj = {
+          id,
+          ...values
         }
+
+        // const formDataValue = new FormData(obj)
+        this.setState(() => {
+          return {
+            buttonLoading: true
+          }
+        }, () => {
+          if (isEdit) {
+            dispatch({ type: 'userManage/editUserMsg', payload: obj, callback: this.dispatchCallback })
+          } else {
+            delete values.confirm_password_register
+            dispatch({ type: 'userManage/addUser', payload: values, callback: this.dispatchCallback })
+          }
+        })
       }
     })
   }
 
-  dispatchCallback = () => {
-    const { isEdit } = this.props
-    this.handleCancel()
-    this.props.dispatch({ type: 'userManage/getTableData' })
-    if (isEdit) {
-      message.success('修改用户信息成功')
+  dispatchCallback = (responseData) => {
+    const { success, message } = responseData
+    if (success) {
+      this.successCallback()
     } else {
-      message.success('添加用户成功')
+      this.errorCallback(message)
     }
+  }
+
+  successCallback = () => {
+    const { isEdit } = this.props
+    this.setState(() => {
+      return {
+        buttonLoading: false
+      }
+    }, () => {
+      this.handleCancel()
+      this.props.dispatch({ type: 'userManage/getTableData', payload: this.state.query })
+      if (isEdit) {
+        message.success('修改用户信息成功')
+      } else {
+        message.success('添加用户成功')
+      }
+    })
+  }
+
+  errorCallback = (message) => {
+    this.setState(() => {
+      return {
+        buttonLoading: false
+      }
+    }, () => {
+      message.error(message)
+    })
   }
 
   handleCancel = () => {
@@ -91,14 +139,13 @@ class AddUser extends Component {
   }
 
   render () {
-    const { autoCompleteResult } = this.state
+    const { autoCompleteResult, buttonLoading } = this.state
     const { isEdit, formData } = this.props
     const { getFieldDecorator } = this.props.form
     const { usernameRules, passwordRules, emailRules, phoneRules } = rulesData
     const emailOptions = autoCompleteResult.map((item) => (
       <AutoCompleteOption key={item}>{item}</AutoCompleteOption>
     ))
-
     return (
       <Form {...formLayout} colon={false} hideRequiredMark={true} onSubmit={this.handleSubmitAddUser}>
         <FormItem label="用户名">
@@ -107,30 +154,40 @@ class AddUser extends Component {
               validateTrigger: 'onBlur',
               initialValue: isEdit ? formData.username : null
             })(
-                <Input disabled={isEdit} />
+                <Input disabled={isEdit} placeholder="输入不可存在空格" />
             )
+          }
+        </FormItem>
+        <FormItem label="姓名">
+          {getFieldDecorator('name', {
+            rules: usernameRules,
+            validateTrigger: 'onBlur',
+            initialValue: isEdit ? formData.name : null
+          })(
+            <Input placeholder="请输入你的姓名" />
+          )
           }
         </FormItem>
         {
           isEdit
           ? <FormItem label="用户角色">
-            {getFieldDecorator('userType', {
-              initialValue: formData.userType
+            {getFieldDecorator('utype', {
+              initialValue: formData.utype
             })(
                 <Select>
-                  <SelectOption value={0}>超级管理员</SelectOption>
-                  <SelectOption value={1}>普通用户</SelectOption>
+                  <SelectOption value={'101003'}>超级管理员</SelectOption>
+                  <SelectOption value={'101001'}>普通用户</SelectOption>
                 </Select>
               )
             }
             </FormItem>
           : <div>
               <FormItem label="密码">
-                {getFieldDecorator('password_register', {
+                {getFieldDecorator('password', {
                     rules: passwordRules,
                     validateTrigger: 'onBlur'
                   })(
-                    <Input type="password" />
+                    <Input type="password" placeholder="请输入6-16个字符的密码" />
                   )
                 }
               </FormItem>
@@ -139,7 +196,7 @@ class AddUser extends Component {
                     rules: [{ required: true, message: '请确认密码' }, { validator: this.comparePassword }],
                     validateTrigger: 'onBlur'
                   })(
-                    <Input type="password" />
+                    <Input type="password" placeholder="请确认密码" />
                   )
                 }
               </FormItem>
@@ -155,7 +212,7 @@ class AddUser extends Component {
                 dataSource={emailOptions}
                 onChange={this.handleSelectEmail}
               >
-                <Input />
+                <Input placeholder="请正确输入邮箱地址" />
               </AutoComplete>
             )
 
@@ -167,13 +224,13 @@ class AddUser extends Component {
             validateTrigger: 'onBlur',
             initialValue: isEdit ? formData.phone : null
           })(
-            <Input />
+            <Input placeholder="请输入你电话号码或固定电话号码" />
           )
 
         }
         </FormItem>
         <FormItem className={styles.buttonStyle}>
-          <Button type="primary" htmlType="submit">{isEdit ? '确认' : '添加'}</Button>
+          <Button type="primary" htmlType="submit" loading={buttonLoading}>{isEdit ? '确认' : '添加'}</Button>
           <Button onClick={() => this.handleCancel(false)}>取消</Button>
         </FormItem>
       </Form>
