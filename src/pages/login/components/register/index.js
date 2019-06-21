@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, AutoComplete } from 'antd'
+import { Form, Input, Button, AutoComplete, message } from 'antd'
 import { connect } from 'dva'
 import styles from './styles/index.less'
 import { validatorName, validatorPassword, validatorEmail, validatorPhone } from 'utils/validator.js'
@@ -86,6 +86,7 @@ class Registration extends Component {
 
   render () {
     const { autoCompleteResult } = this.state
+    const { loading } = this.props
     const { getFieldDecorator } = this.props.form
     const { usernameRules, passwordRules, emailRules, phoneRules } = rulesData
     const emailOptions = autoCompleteResult.map((item) => (
@@ -153,7 +154,7 @@ class Registration extends Component {
         }
         </FormItem>
         <FormItem className={styles.buttonStyle}>
-          <Button type="primary" htmlType="submit">注册</Button>
+          <Button type="primary" loading={loading} htmlType="submit">注册</Button>
           <Button onClick={() => this.handleCancelRegister(false)}>取消</Button>
         </FormItem>
       </Form>

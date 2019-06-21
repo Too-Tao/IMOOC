@@ -17,6 +17,7 @@
     display: flex;
     height: 50px;
     .avatar {
+      display: inline-block;
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -186,7 +187,7 @@
         }
         .evaluationComment {
           .commentHeader {
-            & > a {
+            & > span {
               float: left;
               margin-right: 10px;
               color: #787d82;
@@ -195,7 +196,7 @@
               line-height: 20px;
               font-weight: 700;
             }
-            & > a:hover {
+            & > span:hover {
               color: #C20A0A;
             }
             .commentStarWrap {
@@ -240,6 +241,15 @@
             .time {
               float: right;
             }
+          }
+          .remove {
+            font-size: 12px;
+            float: right;
+            color: #b5b9bc;
+          }
+          .remove:hover {
+            cursor: pointer;
+            color: #000000;
           }
         }
       }
